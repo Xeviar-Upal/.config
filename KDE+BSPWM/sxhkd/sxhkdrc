@@ -7,15 +7,14 @@
 #       |_|                                             #
 #=======================================================#
 
-# wm independent hotkeys
+# wm independent hotkeys ---------------------------------------------------------------------------------------------------------------------
 #
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
 
-#
-# bspwm hotkeys
-#
+
+# bspwm hotkeys ------------------------------------------------------------------------------------------------------------------------	
 
 # quit/restart bspwm
 super + alt + {q,r}
@@ -36,10 +35,9 @@ super + y
 # swap the current node and the biggest window
 super + g
 	bspc node -s biggest.window
+	
 
-#
-# state/flags
-#
+# state/flags ------------------------------------------------------------------------------------------------------------------------	
 
 # set the window state
 super + {t,shift + t,s,f}
@@ -48,10 +46,9 @@ super + {t,shift + t,s,f}
 # set the node flags
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
+	
 
-#
-# focus/swap
-#
+# focus/swap ------------------------------------------------------------------------------------------------------------------------	
 
 # focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
@@ -83,9 +80,8 @@ super + {o,i}
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 
-#
-# preselect
-#
+
+# preselect ------------------------------------------------------------------------------------------------------------------------	
 
 # preselect the direction
 super + ctrl + {h,j,k,l}
@@ -103,9 +99,8 @@ super + ctrl + space
 super + ctrl + shift + space
 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
-#
-# move/resize
-#
+
+# move/resize ------------------------------------------------------------------------------------------------------------------------	
 
 # expand a window by moving one of its side outward
 super + alt + {h,j,k,l}
@@ -118,69 +113,52 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+	
 
-# terminal emulator
+# PROGRAMS ------------------------------------------------------------------------------------------------------------------------	
+
 super + Return
-    alacritty
+	konsole
 
 super + shift + Return
-    $HOME/.config/rofi/launchers/colorful/launcher.sh
+	krunner
 
-# Browser
 super + shift + b
-    brave-nightly
+    brave
 
-# File manager
 super + shift + f
-    thunar
+	dolphin 
 
-# VScode
 super + shift + v
     vscodium
-
-# System Monitor   
+   
 super + shift + Escape
-    alacritty -e htop
+	ksysguard    
 
-# Music player
 super + shift + m
     rhythmbox
+    
+super + shift + x
+    alacritty
 
-# Volume Controls
-# Volume down by 5
+    
+# Volume Controls------------------------------------------------------------------------------------------------------------------------	
 shift + Up
     pactl -- set-sink-volume 0 +5%
-
-# Volume down by 5
+    
 shift + Down
     pactl -- set-sink-volume 0 -5%
 
-# Brightness controls.
+    
+# Brightness controls.------------------------------------------------------------------------------------------------------------------------	
 shift + Right
     xbacklight -inc 5
-    notify-send fuck
+
 shift + Left
     xbacklight -dec 5
 
-# IBus Keyboard
-super + shift + F12
-    alacritty -e ibus-daemon
-
-# lock
-super + shift + x
-    betterlockscreen -l dim
-
-# config files
-super + shift + F1
-	kate .config/bspwm/bspwmrc
-super + shift + F2
-	kate .config/sxhkd/sxhkdrc
-super + shift + F3
-	kate ~/.config/polybar/config
-super + shift + F4
-	kate .zshrc
-
-## Screenshot
+    
+# Screenshot------------------------------------------------------------------------------------------------------------------------	
 Print
     spectacle -fcb
 shift + Print

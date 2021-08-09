@@ -1,17 +1,26 @@
 #! /bin/sh
+#=======================================================#
+#  _   _             _   ____                           #
+# | | | |_ __   __ _| | | __ )  __ _ _ __ _   _  __ _   #
+# | | | | '_ \ / _` | | |  _ \ / _` | '__| | | |/ _` |  #
+# | |_| | |_) | (_| | | | |_) | (_| | |  | |_| | (_| |  #
+#  \___/| .__/ \__,_|_| |____/ \__,_|_|   \__,_|\__,_|  #
+#       |_|                                             #
+#=======================================================#
 
-pgrep -x sxhkd > /dev/null || sxhkd &
-
-# bspc monitor -d I II III IV V VI VII VIII IX X
+################################################################################
+################################################################################
+############                  BSPWM CONFIGURATION               ################
+################################################################################
+################################################################################
 bspc monitor -d I II III IV V VI
 
-#### BSPWM configuration ####
-bspc config border_radius                 8
+bspc config border_radius                 0
 bspc config border_width                  2
-bspc config window_gap                    8 
+bspc config window_gap                    5
 
 bspc config top_padding                   0
-bspc config bottom_padding                33
+bspc config bottom_padding                0
 bspc config left_padding                  0
 bspc config right_padding                 0
 
@@ -31,16 +40,48 @@ bspc config pointer_action1 move
 bspc config pointer_action2 resize_side
 bspc config pointer_action3 resize_corner
 
-#### BSPWM coloring ####
-bspc config active_border_color "#6272a4"
-bspc config focused_border_color "#8be9fd"
-bspc config normal_border_color "#44475a"
-bspc config presel_feedback_color "#6272a4"
+################################################################################
+################################################################################
+############                  BSPWM COLORS                      ################
+################################################################################
+################################################################################
+
+## settings the colors using pywal ##
+# source the colors.
+. "${HOME}/.cache/wal/colors.sh"
+
+# Set the border colors.
+bspc config normal_border_color "$color1"
+bspc config active_border_color "$color2"
+bspc config focused_border_color "$color15"
+bspc config presel_feedback_color "$color1"
+
+################################################################################
+################################################################################
+############                  BSPWM RULES                       ################
+################################################################################
+################################################################################
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a Chromium desktop='^2'
 bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
-bspc rule -a Plank layer=above manage=on border=off focus=off
-bspc rule -a Xfce4-appfinder state=floating 
+
+################################################################################
+################################################################################
+############                  AUTOSTART PROGRAMS                ################
+################################################################################
+################################################################################
+
+pgrep -x sxhkd > /dev/null || sxhkd &
+picom -b &
+nitrogen --restore &
+dunst &
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+$HOME/.config/polybar/launch.sh &
+xsetroot -cursor_name left_ptr &
+klipper &
+ibus-daemon &
+
+
